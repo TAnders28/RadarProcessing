@@ -10,7 +10,7 @@ Exit code 1 on hard failure (no device, short/invalid capture).
 
 Examples:
     python3 scripts/calibrate_n210.py --dry-run
-    python3 scripts/calibrate_n210.py --args 192.168.10.2 --freq 2.45e9
+    python3 scripts/calibrate_n210.py --args 192.168.10.36 --freq 2.45e9
     python3 scripts/calibrate_n210.py --allow-tx --tx-gain 0   # needs load/antenna!
 """
 
@@ -57,7 +57,7 @@ def parse():
     p = argparse.ArgumentParser(description=__doc__,
                                 formatter_class=argparse.RawDescriptionHelpFormatter)
     p.add_argument("--args", default=usrp_util.DEFAULT_ADDR,
-                   help="IP or UHD device args (default addr=192.168.10.2)")
+                   help="IP or UHD device args (default addr=192.168.10.36)")
     p.add_argument("--rate", type=float, default=1e6, help="sample rate, S/s")
     p.add_argument("--freq", type=float, default=2.45e9,
                    help="center freq, Hz (must be in daughterboard range)")
@@ -96,7 +96,7 @@ def main() -> int:
             usrp = usrp_util.open_usrp(cfg)
         except Exception as exc:
             print(f"ERROR: could not open/configure USRP ({cfg.args}): {exc}", file=sys.stderr)
-            print("  check: ip addr show eno1 ; ping 192.168.10.2 ; uhd_find_devices",
+            print("  check: ip addr show eno1 ; ping 192.168.10.36 ; uhd_find_devices",
                   file=sys.stderr)
             return 1
         cal["device"] = usrp_util.describe(usrp, cfg.chan)

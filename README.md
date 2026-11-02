@@ -20,13 +20,13 @@ data/cal/  data/captures/   outputs (git-ignored)
 ## Host / network setup (summary — details in `docs/host_stability.md`)
 
 * Dedicated wired NIC to the N210 (e.g. `eno1`), static **192.168.10.1/24**.
-  N210 default is **192.168.10.2**.
+  This N210 is at **192.168.10.36** (factory default is often `.2`; discover with `uhd_find_devices`).
 * Mark that connection **never-default** so it never steals the default route
   from Wi-Fi / your internet NIC.
 * Install UHD as a **system package** (`uhd-host`, `python3-uhd`, or Ettus
   PPA / source build), then `sudo uhd_images_downloader`.
-* Check: `ping 192.168.10.2` and `uhd_find_devices --args addr=192.168.10.2`
-  then `uhd_usrp_probe --args addr=192.168.10.2`.
+* Check: `ping 192.168.10.36` and `uhd_find_devices --args addr=192.168.10.36`
+  then `uhd_usrp_probe --args addr=192.168.10.36`.
 
 ```bash
 pip install -r requirements.txt     # numpy scipy matplotlib (uhd from system)
@@ -40,7 +40,7 @@ python3 scripts/calibrate_n210.py --dry-run
 python3 scripts/lfm_pulse_train.py --dry-run
 
 # 1. Calibrate once per setup / band (RX only, TX stays off)
-python3 scripts/calibrate_n210.py --args 192.168.10.2 --freq 2.45e9 --rx-gain 20
+python3 scripts/calibrate_n210.py --args 192.168.10.36 --freq 2.45e9 --rx-gain 20
 
 # 2. Capture (RX only until antennas are fitted)
 python3 scripts/lfm_pulse_train.py --freq 2.45e9

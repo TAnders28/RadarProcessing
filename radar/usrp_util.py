@@ -25,7 +25,7 @@ from __future__ import annotations
 import time
 from dataclasses import dataclass, asdict
 
-DEFAULT_ADDR = "192.168.10.2"
+DEFAULT_ADDR = "192.168.10.36"
 
 try:  # UHD is a system package (python3-uhd / built from source), not pip.
     import uhd  # type: ignore
@@ -49,7 +49,7 @@ def require_uhd():
 
 
 def device_args(addr_or_args: str) -> str:
-    """Accept either a bare IP ('192.168.10.2') or a UHD args string."""
+    """Accept either a bare IP ('192.168.10.36') or a UHD args string."""
     s = (addr_or_args or DEFAULT_ADDR).strip()
     if "=" in s:
         return s

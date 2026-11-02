@@ -30,14 +30,14 @@ nmcli con show ; sudo nmcli con mod "Wired connection 1" connection.autoconnect 
 
 ```bash
 ip addr show eno1                 # 192.168.10.1/24, state UP
-ping -c 3 192.168.10.2
-uhd_find_devices --args addr=192.168.10.2
-uhd_usrp_probe   --args addr=192.168.10.2   # FPGA/firmware compat + daughterboard
-benchmark_rate --args addr=192.168.10.2 --rx_rate 10e6 --tx_rate 10e6 --duration 30
+ping -c 3 192.168.10.36
+uhd_find_devices --args addr=192.168.10.36
+uhd_usrp_probe   --args addr=192.168.10.36   # FPGA/firmware compat + daughterboard
+benchmark_rate --args addr=192.168.10.36 --rx_rate 10e6 --tx_rate 10e6 --duration 30
 ```
 
 `uhd_usrp_probe` complaining about **firmware/FPGA compat number** → reflash
-with `uhd_image_loader --args="type=usrp2,addr=192.168.10.2"` after
+with `uhd_image_loader --args="type=usrp2,addr=192.168.10.36"` after
 `sudo uhd_images_downloader`. Keep host UHD and images in step.
 
 ## 3. Socket buffers
@@ -73,7 +73,7 @@ Increase NIC ring buffers if supported: `sudo ethtool -G eno1 rx 4096 tx 4096`.
 | Symptom | Cause / fix |
 |---|---|
 | `eno1` NO-CARRIER / `ethtool` link no | cable not seated in N210, N210 not powered/booted (~10–30 s), bad cable |
-| ping fails, ARP incomplete | wrong host IP/subnet, N210 IP changed (try `uhd_find_devices` broadcast; recover with N210 safe-mode button: boots at 192.168.10.2) |
+| ping fails, ARP incomplete | wrong host IP/subnet, N210 IP changed (try `uhd_find_devices` broadcast; recover with N210 safe-mode button: typically boots at 192.168.10.2; this unit currently uses 192.168.10.36) |
 | Internet dies when N210 connected | eno1 grabbed the default route → set `ipv4.never-default yes` |
 | N210 unreachable after reboot | DHCP/auto profile on eno1 overriding static → disable other profiles |
 | `O`/overflow printed | rate too high, small buffers, CPU throttling, processing in recv loop |
