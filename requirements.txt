@@ -1,0 +1,6 @@
+numpy
+scipy
+matplotlib
+# uhd: install the system package (e.g. `sudo apt install uhd-host python3-uhd`
+# or the Ettus PPA / source build). It is NOT on PyPI. If you use a venv,
+# create it with --system-site-packages so `import uhd` still works.
