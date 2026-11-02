@@ -17,6 +17,23 @@ docs/host_stability.md  Linux host hardening for a reliable N210 link
 data/cal/  data/captures/   outputs (git-ignored)
 ```
 
+## Quick API
+
+```python
+from radar import Calibrate, TransmitReceivePulses
+
+cal = Calibrate()                          # RX-only health check → data/cal/
+cap = TransmitReceivePulses(allow_tx=False)  # timed LFM capture → data/captures/
+# cap["iq"] is complex64 NumPy for your later algorithms
+```
+
+Or run the demo:
+
+```bash
+python3 examples/barebones_demo.py            # dry-run
+python3 examples/barebones_demo.py --live     # real N210, TX still off
+```
+
 ## Host / network setup (summary — details in `docs/host_stability.md`)
 
 * Dedicated wired NIC to the N210 (e.g. `eno1`), static **192.168.10.1/24**.

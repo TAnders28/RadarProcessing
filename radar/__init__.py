@@ -1,13 +1,19 @@
 """Pure-Python UHD radar toolkit for the Ettus N210.
 
-Modules:
-    usrp_util  - open/configure a MultiUSRP and build TX/RX streamers
-    waveforms  - NumPy waveform generators (LFM pulse, pulse train, CW tone)
-    io_util    - save/load IQ captures (.npy) with JSON sidecar metadata
-    processing - matched filter / pulse compression (plug custom algorithms here)
+Public API (start here):
+    from radar import Calibrate, TransmitReceivePulses
 
-No GNU Radio. Everything is raw complex64 NumPy arrays so later stages can
-manipulate the IQ directly.
+Modules:
+    api        - Calibrate / TransmitReceivePulses
+    usrp_util  - open/configure MultiUSRP + timed TX/RX streamers
+    waveforms  - NumPy LFM / pulse train / CW
+    io_util    - IQ .npy + JSON sidecar
+    processing - matched filter / Doppler (plug custom algorithms here)
+
+No GNU Radio. IQ is always complex64 NumPy for later custom stages.
 """
 
-__version__ = "0.1.0"
+from .api import Calibrate, TransmitReceivePulses
+
+__version__ = "0.2.0"
+__all__ = ["Calibrate", "TransmitReceivePulses"]
