@@ -19,6 +19,8 @@ data/cal/  data/captures/   outputs (git-ignored)
 
 ## Quick API
 
+Hardware add-ons and buy links: see [`docs/shopping-list.md`](docs/shopping-list.md).
+
 ```python
 from radar import Calibrate, TransmitReceivePulses
 
