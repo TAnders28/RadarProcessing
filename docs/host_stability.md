@@ -40,6 +40,22 @@ benchmark_rate --args addr=192.168.10.36 --rx_rate 10e6 --tx_rate 10e6 --duratio
 with `uhd_image_loader --args="type=usrp2,addr=192.168.10.36"` after
 `sudo uhd_images_downloader`. Keep host UHD and images in step.
 
+## ThinkCentre quick harden (this machine)
+
+Already done without root:
+- NM `Wired connection 1` on `eno1`: static `192.168.10.1/24`, `never-default yes`, autoconnect on
+- CPU governor: `performance`
+- This N210: `192.168.10.36`, serial `E8R23N4UP`, SBX, GPSDO present
+
+Needs one root pass (buffers + NIC rings + UHD rtprio):
+
+```bash
+cd ~/RadarProcessing
+sudo ./scripts/stabilize_host.sh
+```
+
+That installs `host/99-usrp-buffers.conf` and `host/99-usrp-limits.conf`, raises `eno1` rings to 4096, and re-checks ping/find.
+
 ## 3. Socket buffers
 
 UHD warns if kernel socket buffers are small. Make them persistent:
